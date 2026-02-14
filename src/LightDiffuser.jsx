@@ -378,6 +378,18 @@ export default function LightDiffuser() {
     }); setSel(null);
   }, [active]);
 
+  const shuffleFil = useCallback(() => {
+    setFil({
+      contrast: 0.8 + Math.random() * 0.6,
+      bloom: Math.random() * 0.8,
+      grain: Math.random() * 0.12,
+      chroma: Math.random() * 0.02,
+      vignette: 0.5 + Math.random(),
+      scanFreq: 50 + Math.random() * 100,
+      scanInt: Math.random() > 0.8 ? Math.random() * 0.3 : 0
+    });
+  }, []);
+
   const dlPNG = useCallback(() => {
     const c = cvRef.current; if (!c) return;
     const a = document.createElement("a"); a.download = "light-mesh.png"; a.href = c.toDataURL("image/png"); a.click();
@@ -515,8 +527,12 @@ export default function LightDiffuser() {
             <Sl l="Frequency" v={fil.scanFreq} set={v => updFil("scanFreq", v)} mn={5} mx={200} st={1} />
             <Sl l="Intensity" v={fil.scanInt} set={v => updFil("scanInt", v)} mn={0} mx={1} st={.05} />
           </div>
-          <button onClick={e => { e.stopPropagation(); setFil({ contrast: 1, bloom: 0, grain: 0, chroma: 0, vignette: 1, scanFreq: 50, scanInt: 0 }); }}
-            style={{ ...btnS(false), padding: "3px 8px", fontSize: 9, marginTop: 4 }}>Reset Filters</button>
+          <div style={{ display: "flex", gap: 4, marginTop: 4 }}>
+            <button onClick={e => { e.stopPropagation(); shuffleFil(); }}
+              style={{ ...btnS(true), flex: 1, padding: "3px 8px", fontSize: 9, justifyContent: "center" }}>🔀 Shuffle</button>
+            <button onClick={e => { e.stopPropagation(); setFil({ contrast: 1, bloom: 0, grain: 0, chroma: 0, vignette: 1, scanFreq: 50, scanInt: 0 }); }}
+              style={{ ...btnS(false), flex: 1, padding: "3px 8px", fontSize: 9, justifyContent: "center" }}>Reset</button>
+          </div>
         </div>
       )}
 
@@ -562,6 +578,13 @@ export default function LightDiffuser() {
         <div style={{ fontSize: 8, color: "rgba(255,255,255,.2)", letterSpacing: ".05em" }}>
           Click canvas to add · Drag to move · Double-click to cycle color · {active.length} color{active.length > 1 ? "s" : ""} locked for shuffle
         </div>
+        <a href="https://www.linkedin.com/in/arthurguillerminhazan/" target="_blank" rel="noopener noreferrer"
+          onClick={e => e.stopPropagation()}
+          style={{ fontSize: 9, color: "rgba(255,255,255,.15)", textDecoration: "none", marginTop: 2, transition: "color .2s", pointerEvents: "auto" }}
+          onMouseOver={e => e.currentTarget.style.color = "rgba(255,255,255,.4)"}
+          onMouseOut={e => e.currentTarget.style.color = "rgba(255,255,255,.15)"}>
+          Brought to you with love by Arthur Guillermin Hazan
+        </a>
       </div>
 
       {/* ═══ CSS PANEL ═══ */}
