@@ -9,8 +9,9 @@ const PRACTICES = {
   core: { hex: "#B0F0FF", rgb: [0.690, 0.941, 1.0], label: "Core" },
   soma: { hex: "#D4FFD4", rgb: [0.831, 1.0, 0.831], label: "Soma" },
   aura: { hex: "#FFD6FF", rgb: [1.0, 0.839, 1.0], label: "Aura" },
+  iconic: { hex: "#26004E", rgb: [0.149, 0.0, 0.306], label: "Iconic" },
 };
-const P_KEYS = ["mind", "core", "soma", "aura"];
+const P_KEYS = ["mind", "core", "soma", "aura", "iconic"];
 const MAX_PTS = 16;
 const SHAPES = [{ id: 0, l: "●", n: "Point" }, { id: 1, l: "○", n: "Circle" }, { id: 2, l: "□", n: "Square" }, { id: 3, l: "◇", n: "Diamond" }, { id: 4, l: "―", n: "Line" }, { id: 5, l: "M", n: "Mantu" }];
 
